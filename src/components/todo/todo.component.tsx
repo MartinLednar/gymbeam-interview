@@ -11,7 +11,8 @@ import {
   SquareCheckBig,
   Trash2,
 } from "lucide-react";
-import { FC, useMemo, useState } from "react";
+import { FC, useState } from "react";
+import { UpdateTodoForm } from "../forms/todo/updateTodo.form";
 
 export const Todo: FC<TTodo> = ({
   completed,
@@ -51,24 +52,24 @@ export const Todo: FC<TTodo> = ({
           )}
         </button>
 
-        <input
-          type="text"
-          value={title}
-          disabled={!isEditMode}
-          className="bg-transparent "
+        <UpdateTodoForm
+          listId={listId}
+          todoId={id}
+          isEditMode={isEditMode}
+          toggleEditMode={setEditMode}
+          title={title}
         />
-        <p>{description}</p>
 
-        {/* <button
-        type="button"
-        className="flex gap-x-1 p-2 ml-auto bg-red-600 text-white rounded-md"
-        onClick={handleDeleteTodo}
-      >
-        <Trash2 className="w-5 h-5" />
-      </button> */}
         <button
           type="button"
-          className="flex gap-x-1 ml-auto p-2 bg-orange-600 text-white rounded-md"
+          className="flex p-2 ml-auto bg-red-600 text-white rounded-md"
+          onClick={handleDeleteTodo}
+        >
+          <Trash2 className="w-5 h-5" />
+        </button>
+        <button
+          type="button"
+          className="flex ml-auto p-2 bg-orange-600 text-white rounded-md"
           onClick={handleToggleEditMode}
         >
           <Edit className="w-5 h-5" />
