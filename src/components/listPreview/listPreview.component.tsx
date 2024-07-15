@@ -12,18 +12,11 @@ interface Props {
 }
 
 export const ListPreview: FC<Props> = ({ listData }) => {
-  const { mutate } = useDeleteList();
-
   const { id, createdAt, title, totalTodos } = listData;
   const filteredTodos = useMemo(() => calcDoneTodos(totalTodos), [totalTodos]);
 
-  const handleDeleteList = () => mutate({ id });
-
   return (
     <div className="p-5 border border-black/10 flex flex-col">
-      <button type="button" className="ml-auto pb-4" onClick={handleDeleteList}>
-        <Trash2 className="h-5 w-5 text-red-600" />
-      </button>
       <h2 className="font-semibold">{title}</h2>
       <h3>Created: {new Date(createdAt).toLocaleDateString()}</h3>
       <h3>Total todos: {totalTodos.length}</h3>

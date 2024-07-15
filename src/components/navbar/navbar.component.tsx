@@ -1,6 +1,7 @@
 import { SquareCheckBig } from "lucide-react";
 import { FC } from "react";
 import Link from "../link/link.component";
+import { ThemeToggle } from "../themeToggle/themeToggle.component";
 
 interface Props {}
 
@@ -23,6 +24,9 @@ const Navbar: FC<Props> = ({}) => {
         </li>
         <li>
           <Link href="/">Login</Link>
+        </li>
+        <li>
+          <ThemeToggle />
         </li>
       </ul>
     </nav>

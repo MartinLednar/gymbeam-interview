@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/navbar/navbar.component";
 import { QueryClientProvider } from "@/components/wrappers/queryClient/queryClient.wrapper";
 import { ToasterProvider } from "@/components/wrappers/toast/toast.wrapper";
+import { ThemeProvider } from "@/components/wrappers/nextTheme/nextTheme.wrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,12 +19,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <QueryClientProvider>
-          <Navbar />
-          {children}
-
+          <ThemeProvider>
+            <Navbar />
+            {children}
+          </ThemeProvider>
           <ToasterProvider />
         </QueryClientProvider>
       </body>
