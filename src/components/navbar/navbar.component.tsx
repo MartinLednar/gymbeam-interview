@@ -15,9 +15,9 @@ const Navbar = () => {
         </Link>
       </div>
 
-      <ul className="flex items-center text-lg gap-x-3">
+      <ul className="flex items-center text-lg gap-x-5">
         <li>
-          <Link href="/">Todos</Link>
+          <Link href="/">Lists</Link>
         </li>
         <li>
           <ThemeToggle />

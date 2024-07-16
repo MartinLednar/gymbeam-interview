@@ -4,8 +4,9 @@ import { CreateListForm } from "@/components/forms/lists/createList.form";
 import ListPreview from "@/components/listPreview/listPreview.component";
 import { ListPreviewSkeleton } from "@/components/skeletons/listPreview.skeleton";
 import { useGetLists } from "@/hooks/lists/queries/useGetLists/useGetLists.hook";
+import { motion } from "framer-motion";
 
-//TODO show loading state, no todos message, error state + retry for fetch
+//TODO show no todos message, error state + retry for fetch
 const HomePage = () => {
   const { isLoading, isSuccess, isError, data, refetch } = useGetLists();
 
@@ -17,7 +18,10 @@ const HomePage = () => {
 
           <CreateListForm />
         </div>
-        <div className="grid grid-cols-3 gap-x-3 gap-y-3">
+        <motion.div
+          layout
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-3 gap-y-3"
+        >
           {isLoading ? (
             <>
               <ListPreviewSkeleton />
@@ -32,7 +36,7 @@ const HomePage = () => {
           {isSuccess
             ? data.map((list) => <ListPreview key={list.id} listData={list} />)
             : null}
-        </div>
+        </motion.div>
       </main>
     </>
   );

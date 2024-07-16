@@ -50,7 +50,7 @@ export const Modal: FC<Props> = ({ children, isModalActive, toggleModal }) => {
           initial={"close"}
           animate={isModalActive ? "open" : "close"}
           exit={{ display: "none" }}
-          className="bg-white dark:bg-dark rounded-md flex flex-col items-center w-full max-w-sm lg:max-w-2xl md:max-w-md"
+          className="bg-white dark:bg-dark rounded-md flex flex-col items-center w-full max-w-sm lg:max-w-2xl md:max-w-md max-h-[90svh] overflow-y-scroll"
         >
           <button
             type="button"

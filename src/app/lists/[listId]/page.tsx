@@ -7,6 +7,7 @@ import { Todo } from "@/components/todo/todo.component";
 import { useDeleteList } from "@/hooks/lists/mutations/useDeleteList.hook";
 import { useGetList } from "@/hooks/lists/queries/useGetList/useGetList.hook";
 import { calcDoneTodos } from "@/utils/todos.util";
+import { AnimatePresence, motion } from "framer-motion";
 import { Plus, Trash2, TriangleAlert } from "lucide-react";
 
 import { useParams, useRouter } from "next/navigation";
@@ -90,7 +91,7 @@ const ListPage = () => {
           </div>
 
           <div className="max-w-lg mx-auto pt-20">
-            <div className="flex items-center justify-between pb-6 border-b border-b-gray-600/30">
+            <div className="flex items-center justify-between pb-6 border-b-2 border-b-gray-600/30">
               <h2 className="text-2xl font-semibold ">To-Do</h2>
 
               <button
@@ -101,7 +102,10 @@ const ListPage = () => {
               </button>
             </div>
 
-            <div className="max-h-[50svh] overflow-y-scroll flex flex-col gap-y-3 pt-5">
+            <motion.div
+              layout
+              className="max-h-[50svh] overflow-y-scroll flex flex-col gap-y-3 pt-5"
+            >
               {filteredTodos && filteredTodos.undoneTodos.total > 0 ? (
                 filteredTodos.undoneTodos.todos.map((todo) => (
                   <Todo key={todo.id} {...todo} />
@@ -111,7 +115,7 @@ const ListPage = () => {
                   No todos to do...
                 </p>
               )}
-            </div>
+            </motion.div>
             <Modal
               isModalActive={isAddTodoModalActive}
               toggleModal={toggleAddTodoModalActive}
@@ -121,10 +125,13 @@ const ListPage = () => {
           </div>
 
           <div className="max-w-lg mx-auto pt-20">
-            <h2 className="text-2xl font-semibold pb-6 border-b border-b-gray-600/30">
+            <h2 className="text-2xl font-semibold pb-6 border-b-2 border-b-gray-600/30">
               Completed tasks
             </h2>
-            <div className="max-h-[50svh] overflow-y-scroll flex flex-col gap-y-3 pt-5">
+            <motion.div
+              layout
+              className="max-h-[50svh] overflow-y-scroll flex flex-col gap-y-3 pt-5"
+            >
               {filteredTodos && filteredTodos.doneTodos.total > 0 ? (
                 filteredTodos.doneTodos.todos.map((todo) => (
                   <Todo key={todo.id} {...todo} />
@@ -134,7 +141,7 @@ const ListPage = () => {
                   Ready for great accomplishments...
                 </p>
               )}
-            </div>
+            </motion.div>
           </div>
         </>
       ) : null}

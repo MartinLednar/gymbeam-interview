@@ -43,32 +43,29 @@ export const CreateListForm = () => {
         Add <Plus className="w-5 h-5" />
       </button>
 
-      {createPortal(
-        <Modal isModalActive={isModalActive} toggleModal={setIsModalActive}>
-          <form
-            className="flex flex-col gap-y-2"
-            onSubmit={handleSubmit(onSubmit)}
+      <Modal isModalActive={isModalActive} toggleModal={setIsModalActive}>
+        <form
+          className="flex flex-col gap-y-2"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <h3 className="text-left text-xl">New list</h3>
+          <p className="font-light text-lg pb-5">
+            Choose title for the new list
+          </p>
+          <Input
+            disabled={isPending}
+            fieldError={errors.title?.message}
+            {...register("title")}
+            placeholder="List title"
+          />
+          <button
+            className="mt-1 p-3 rounded-md border-2 border-green-500 text-center transition-colors duration-500 hover:bg-green-500 hover:text-white disabled:opacity-50"
+            disabled={isPending}
           >
-            <h3 className="text-left text-xl">New list</h3>
-            <p className="font-light text-lg pb-5">
-              Choose title for the new list
-            </p>
-            <Input
-              disabled={isPending}
-              fieldError={errors.title?.message}
-              {...register("title")}
-              placeholder="List title"
-            />
-            <button
-              className="mt-1 p-3 rounded-md border-2 border-green-500 text-center transition-colors duration-500 hover:bg-green-500 hover:text-white disabled:opacity-50"
-              disabled={isPending}
-            >
-              Submit
-            </button>
-          </form>
-        </Modal>,
-        document.body
-      )}
+            Submit
+          </button>
+        </form>
+      </Modal>
     </>
   );
 };

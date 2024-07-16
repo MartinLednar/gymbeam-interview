@@ -64,10 +64,10 @@ export const UpdateTodoForm = ({
       className="flex flex-col gap-y-2 w-full"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <h3 className="text-left text-xl font-semibold">Todo detail</h3>
+      <h3 className="text-left text-2xl font-bold">Todo detail</h3>
       <p className="font-light text-lg pb-5">See todo details or update it.</p>
 
-      <label htmlFor="title" className="font-light pt-2">
+      <label htmlFor="title" className="font-semibold text-lg">
         Title
       </label>
       <Input
@@ -77,7 +77,7 @@ export const UpdateTodoForm = ({
         placeholder="List title"
       />
 
-      <label htmlFor="dueDate" className="font-light pt-2">
+      <label htmlFor="dueDate" className="font-semibold text-lg pt-4">
         Due date
       </label>
       <Input
@@ -87,7 +87,7 @@ export const UpdateTodoForm = ({
         {...register("dueDate")}
       />
 
-      <label htmlFor="priority" className="font-light pt-2">
+      <label htmlFor="priority" className="font-semibold text-lg pt-4">
         Task priority
       </label>
       <select
@@ -103,7 +103,7 @@ export const UpdateTodoForm = ({
         <option value={TodoPriority.High.title}>High</option>
       </select>
 
-      <label htmlFor="description" className="font-light pt-2">
+      <label htmlFor="description" className="font-semibold text-lg pt-4">
         Task description
       </label>
       <textarea
@@ -113,7 +113,7 @@ export const UpdateTodoForm = ({
         className={inputStyleVariants()}
       />
 
-      <div className="flex items-center gap-x-3 pt-3">
+      <div className="flex items-center gap-x-3 pt-5">
         <button
           type="submit"
           disabled={!isDataChanged() || isPending}

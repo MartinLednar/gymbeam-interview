@@ -16,6 +16,7 @@ import { FC, useState } from "react";
 import { UpdateTodoForm } from "../forms/todo/updateTodo.form";
 import { Modal } from "../modal/modal.component";
 import { TodoPriority } from "../forms/todo/createTodo.form";
+import { motion } from "framer-motion";
 
 export const Todo: FC<TTodo> = (todo) => {
   const { completed, listId, id, title, description, dueDate, priority } = todo;
@@ -58,7 +59,14 @@ export const Todo: FC<TTodo> = (todo) => {
         </div>
       </Modal>
 
-      <div className="border flex flex-col bg-white dark:bg-dark h-min border-gray-600/30 p-6 items-center gap-x-3 rounded-md">
+      <motion.div
+        layout
+        layoutId={id}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0, transition: { duration: 0.5 } }}
+        exit={{ opacity: 0 }}
+        className="border flex flex-col bg-white dark:bg-dark h-min border-gray-600/30 p-6 items-center gap-x-3 rounded-md"
+      >
         <div className="flex items-center justify-between w-full">
           <button type="button" onClick={handleToggleTodoState}>
             {completed ? (
@@ -94,7 +102,7 @@ export const Todo: FC<TTodo> = (todo) => {
           <h4 className="text-xl pt-5 pb-3">{title}</h4>
           <p className="truncate max-w-sm">{description}</p>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };
