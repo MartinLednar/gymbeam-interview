@@ -12,33 +12,45 @@ interface Props {
 }
 
 export const ListPreview: FC<Props> = ({ listData }) => {
-  const { id, createdAt, title, totalTodos } = listData;
+  const { id, createdAt, title, totalTodos, bgColor } = listData;
   const filteredTodos = useMemo(() => calcDoneTodos(totalTodos), [totalTodos]);
 
   return (
-    <div className="p-5 border border-black/10 flex flex-col">
-      <h2 className="font-semibold">{title}</h2>
-      <h3>Created: {new Date(createdAt).toLocaleDateString()}</h3>
-      <h3>Total todos: {totalTodos.length}</h3>
-      <div className="flex gap-x-3">
-        <div className="flex flex-col flex-1 items-center justify-center p-5">
-          <h4>Done</h4>
-          <ListChecks />
-          <p>{filteredTodos.doneTodos.total}</p>
-        </div>
-
-        <div className="flex flex-col flex-1 items-center justify-center p-5">
-          <h4>Undone</h4>
-          <LayoutList />
-          <p>{filteredTodos.undoneTodos.total}</p>
-        </div>
-      </div>
-      <Link
-        href={`/lists/${id}`}
-        className="px-3 py-5 border-2 border-green-500 text-center"
+    <div className="flex-1 h-max rounded-md overflow-hidden border border-gray-600/20 shadow-sm">
+      <div
+        className="h-min pb-3 px-4 pt-10 bg-gradient-to-tr to-[#468585] from-[#50B498]"
+        style={{ backgroundColor: bgColor }}
       >
-        Go to list
-      </Link>
+        <h2 className="font-semibold text-2xl text-white">{title}</h2>
+      </div>
+
+      <div className="p-3 flex flex-col gap-y-1">
+        <h3 className="text-lg">
+          Created: {new Date(createdAt).toLocaleDateString()}
+        </h3>
+        <h3 className="text-lg">Total todos: {totalTodos.length}</h3>
+        <div className="flex gap-x-3 p-2">
+          <div className="flex flex-col flex-1 items-center justify-center p-3 gap-y-2">
+            <p className="text-lg font-light">
+              {filteredTodos.doneTodos.total}
+            </p>
+            <ListChecks />
+          </div>
+
+          <div className="flex flex-col flex-1 items-center justify-center p-5 gap-y-2">
+            <p className="text-lg font-light">
+              {filteredTodos.undoneTodos.total}
+            </p>
+            <LayoutList />
+          </div>
+        </div>
+        <Link
+          href={`/lists/${id}`}
+          className="p-3 rounded-md border-2 border-green-500 text-center transition-colors duration-500 hover:bg-green-500 hover:text-white"
+        >
+          Go to list
+        </Link>
+      </div>
     </div>
   );
 };

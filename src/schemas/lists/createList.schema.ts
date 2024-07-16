@@ -4,7 +4,9 @@ export const createListSchema = z.object({
   createdAt: z
     .string({ required_error: "Required!" })
     .min(1, { message: "Creation date has to be defined" }),
-  title: z.string({ required_error: "Required!" }),
+  title: z
+    .string({ required_error: "Required!" })
+    .min(1, { message: "Title is required" }),
 });
 
 export type TCreateList = z.infer<typeof createListSchema>;

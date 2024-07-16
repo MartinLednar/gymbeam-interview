@@ -18,7 +18,6 @@ const fetchCreateTodo = async (todoData: TCreateTodo) => {
         ...validatedData,
         completed: false,
         createdAt: new Date().toISOString(),
-        description: "",
       } satisfies Omit<Todo, "id">
     );
 

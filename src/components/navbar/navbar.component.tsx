@@ -11,7 +11,7 @@ const Navbar: FC<Props> = ({}) => {
       <div className="container flex">
         <Link
           href="/"
-          className="font-semibold text-2xl flex items-center justify-center gap-x-2.5"
+          className="font-medium text-2xl flex justify-center items-center gap-x-2.5"
         >
           <SquareCheckBig className="h-7 w-7" />
           Todo.io

@@ -5,4 +5,5 @@ export type List = {
   createdAt: string;
   title: string;
   totalTodos: Todo[];
+  bgColor: string;
 };

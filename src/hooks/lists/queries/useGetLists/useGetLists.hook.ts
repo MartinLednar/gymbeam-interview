@@ -4,7 +4,12 @@ import { useQuery } from "@tanstack/react-query";
 
 const fetchGetLists = async (): Promise<List[]> => {
   try {
-    const { data } = await axiosClient.get<List[]>("lists");
+    const { data } = await axiosClient.get<List[]>("lists", {
+      params: {
+        sortBy: "id",
+        order: "desc",
+      },
+    });
 
     return data;
   } catch (error) {
