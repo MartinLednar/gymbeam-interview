@@ -1,5 +1,6 @@
 "use client";
 
+import Input, { inputStyleVariants } from "@/components/input/input.component";
 import { useCreateTodo } from "@/hooks/todos/mutations/useCreateTodo/useCreateTodo.hook";
 import {
   createTodoSchema,
@@ -10,9 +11,9 @@ import { color } from "framer-motion";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 export const TodoPriority = {
-  low: { title: "Low", color: "green" },
-  medium: { title: "Medium", color: "orange" },
-  high: { title: "High", color: "Red" },
+  Low: { title: "Low", color: "green" },
+  Medium: { title: "Medium", color: "darkOrange" },
+  High: { title: "High", color: "red" },
 } as const;
 
 export const CreateTodoForm = ({ listId }: { listId: string }) => {
@@ -23,7 +24,7 @@ export const CreateTodoForm = ({ listId }: { listId: string }) => {
     formState: { errors },
   } = useForm<TCreateTodo>({
     resolver: zodResolver(createTodoSchema),
-    defaultValues: { title: "", listId },
+    defaultValues: { title: "", priority: TodoPriority.Medium.title, listId },
   });
   const { mutate: createTodo, isPending } = useCreateTodo();
 
@@ -31,8 +32,6 @@ export const CreateTodoForm = ({ listId }: { listId: string }) => {
     createTodo(data);
     reset();
   };
-
-  console.log("erros", errors);
 
   return (
     <form
@@ -44,26 +43,25 @@ export const CreateTodoForm = ({ listId }: { listId: string }) => {
         Create new task and get down on it!
       </p>
 
-      <label htmlFor="dueDate" className="font-light pt-2">
+      <label htmlFor="title" className="font-light pt-2">
         Todo title <span className="text-red-500">*</span>
       </label>
-      <input
+      <Input
+        id="title"
         disabled={isPending}
         {...register("title")}
-        className="border-2 rounded-md border-black/10 py-4 px-3 outline-none focus:border-black/30"
-        placeholder="List title"
+        placeholder="Todo title"
       />
 
       <label htmlFor="dueDate" className="font-light pt-2">
         Due date
       </label>
-      <input
+      <Input
         id="dueDate"
         disabled={isPending}
         type="date"
         {...register("dueDate")}
-        className=" border-2 rounded-md border-black/10 py-4 px-3 outline-none focus:border-black/30"
-        placeholder="List title"
+        placeholder="Due date of todo"
       />
 
       <label htmlFor="priority" className="font-light pt-2">
@@ -72,14 +70,13 @@ export const CreateTodoForm = ({ listId }: { listId: string }) => {
       <select
         id="priority"
         {...register("priority")}
-        defaultValue={TodoPriority.medium.title}
-        className="p-3 border-2 border-black/10 rounded-md"
+        className={inputStyleVariants({ className: "cursor-pointer" })}
       >
-        <option value={TodoPriority.low.title}>Low</option>
+        <option value={TodoPriority.Low.title}>Low</option>
 
-        <option value={TodoPriority.medium.title}>Medium</option>
+        <option value={TodoPriority.Medium.title}>Medium</option>
 
-        <option value={TodoPriority.high.title}>High</option>
+        <option value={TodoPriority.High.title}>High</option>
       </select>
 
       <label htmlFor="description" className="font-light pt-2">
@@ -88,7 +85,7 @@ export const CreateTodoForm = ({ listId }: { listId: string }) => {
       <textarea
         id="description"
         {...register("description")}
-        className="p-3 border-2 border-black/10 rounded-md"
+        className={inputStyleVariants()}
       />
 
       <button

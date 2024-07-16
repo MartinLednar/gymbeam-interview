@@ -43,14 +43,14 @@ export const Modal: FC<Props> = ({ children, isModalActive, toggleModal }) => {
         initial="close"
         animate={isModalActive ? "open" : "close"}
         exit={{ display: "none" }}
-        className={`absolute top-0 left-0 w-full h-full z-30 bg-black/20 backdrop-blur-sm flex items-center justify-center`}
+        className={`fixed top-0 left-0 w-full h-full min-h-full z-40 bg-black/20 backdrop-blur-sm flex items-center justify-center`}
       >
         <motion.div
           variants={modalContentAnimation}
           initial={"close"}
           animate={isModalActive ? "open" : "close"}
           exit={{ display: "none" }}
-          className=" bg-white rounded-md flex flex-col items-center w-full max-w-sm lg:max-w-2xl md:max-w-md"
+          className="bg-white dark:bg-dark rounded-md flex flex-col items-center w-full max-w-sm lg:max-w-2xl md:max-w-md"
         >
           <button
             type="button"

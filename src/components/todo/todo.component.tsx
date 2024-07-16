@@ -4,18 +4,21 @@ import { useDeleteTodo } from "@/hooks/todos/mutations/useDeleteTodo/useDeleteTo
 import { useToggleTodoState } from "@/hooks/todos/mutations/useToggleTodoState/useToggleTodoState.hook";
 import type { Todo as TTodo } from "@/types/todo.type";
 import {
+  CalendarClock,
   Circle,
   CircleCheckBig,
   EllipsisIcon,
+  Square,
   Trash2,
   TriangleAlert,
 } from "lucide-react";
 import { FC, useState } from "react";
 import { UpdateTodoForm } from "../forms/todo/updateTodo.form";
 import { Modal } from "../modal/modal.component";
+import { TodoPriority } from "../forms/todo/createTodo.form";
 
 export const Todo: FC<TTodo> = (todo) => {
-  const { completed, listId, id, title } = todo;
+  const { completed, listId, id, title, description, dueDate, priority } = todo;
   const [isModalActive, setIsModalActive] = useState(false);
   const { mutate: toggleTodoState } = useToggleTodoState();
   const { mutate: deleteTodo } = useDeleteTodo();
@@ -55,26 +58,42 @@ export const Todo: FC<TTodo> = (todo) => {
         </div>
       </Modal>
 
-      <div className="border bg-white h-min border-black/10 p-6 flex items-center gap-x-3 rounded-md">
-        <button type="button" onClick={handleToggleTodoState}>
-          {completed ? (
-            <CircleCheckBig className="w-5 h-5 text-green-600" />
-          ) : (
-            <Circle className="w-5 h-5" />
-          )}
-        </button>
-
-        <h4 className="text-lg">{title}</h4>
-
-        {!completed && (
+      <div className="border flex flex-col bg-white dark:bg-dark h-min border-gray-600/30 p-6 items-center gap-x-3 rounded-md">
+        <div className="flex items-center justify-between w-full">
+          <button type="button" onClick={handleToggleTodoState}>
+            {completed ? (
+              <CircleCheckBig className="w-6 h-6 text-green-600" />
+            ) : (
+              <Square className="w-6 h-6" />
+            )}
+          </button>
           <button
             type="button"
-            className="flex ml-auto p-2 bg-gray-100 rounded-md border border-black/10"
+            className="flex ml-auto p-2 bg-gray-100 dark:bg-transparent rounded-md border border-gray/30"
             onClick={handleToggleModal}
           >
             <EllipsisIcon className="w-5 h-5" />
           </button>
-        )}
+        </div>
+
+        <div className="w-full pt-5">
+          <div className="flex items-center justify-between">
+            <span
+              className="rounded-full font-medium py-1 text-sm px-2 w-max text-white"
+              style={{ backgroundColor: TodoPriority[priority].color }}
+            >
+              {priority}
+            </span>
+
+            <p className="flex items-center justify-center gap-x-2">
+              <CalendarClock className="w-5 h-5" />{" "}
+              {dueDate ? new Date(dueDate).toLocaleDateString() : "No due date"}
+            </p>
+          </div>
+
+          <h4 className="text-xl pt-5 pb-3">{title}</h4>
+          <p className="truncate max-w-sm">{description}</p>
+        </div>
       </div>
     </>
   );

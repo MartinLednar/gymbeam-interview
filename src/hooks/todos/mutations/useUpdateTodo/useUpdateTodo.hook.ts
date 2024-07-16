@@ -4,19 +4,11 @@ import { axiosClient } from "@/utils/axios.util";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-const fetchUpdateTodo = async ({
-  listId,
-  todoId,
-  title,
-}: {
-  listId: string;
-  todoId: string;
-  title: string;
-}) => {
+const fetchUpdateTodo = async ({ listId, id: todoId, ...otherData }: Todo) => {
   try {
     const { data } = await axiosClient.put<Todo>(
       `lists/${listId}/todos/${todoId}`,
-      { title }
+      { ...otherData }
     );
 
     return data;
@@ -27,20 +19,8 @@ const fetchUpdateTodo = async ({
 
 export const useUpdateTodo = () =>
   useMutation({
-    mutationFn: ({
-      listId,
-      todoId,
-      title,
-    }: {
-      listId: string;
-      todoId: string;
-      title: string;
-    }) => {
-      const updateTodoPromise = fetchUpdateTodo({
-        listId,
-        todoId,
-        title,
-      });
+    mutationFn: (todo: Todo) => {
+      const updateTodoPromise = fetchUpdateTodo(todo);
 
       toast.promise(updateTodoPromise, {
         success: "To-Do updated successfully!",

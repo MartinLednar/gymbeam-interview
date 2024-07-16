@@ -11,6 +11,7 @@ import {
   createTodoSchema,
   TUpdateTodo,
 } from "@/schemas/todo/createTodo.schema";
+import Input, { inputStyleVariants } from "@/components/input/input.component";
 
 export const UpdateTodoForm = ({
   todo,
@@ -19,7 +20,7 @@ export const UpdateTodoForm = ({
   todo: Todo;
   toggleModal: () => void;
 }) => {
-  const { listId, id: todoId } = todo;
+  const { listId, id, createdAt, completed } = todo;
   const {
     register,
     reset,
@@ -46,9 +47,11 @@ export const UpdateTodoForm = ({
     [formData, todo]
   );
 
+  console.log("errors", errors);
+
   const onSubmit: SubmitHandler<TUpdateTodo> = async (data) => {
     try {
-      await mutateAsync({ listId, todoId, title: data.title });
+      await mutateAsync({ ...data, listId, id, createdAt, completed });
       handleToggleEditMode();
     } catch (error) {
       toggleModal();
@@ -67,12 +70,21 @@ export const UpdateTodoForm = ({
       <label htmlFor="title" className="font-light pt-2">
         Title
       </label>
-      <input
+      <Input
         id="title"
         disabled={isPending || !isEditMode}
         {...register("title")}
-        className=" border-2 rounded-md border-black/10 py-4 px-3 outline-none focus:border-black/30"
         placeholder="List title"
+      />
+
+      <label htmlFor="dueDate" className="font-light pt-2">
+        Due date
+      </label>
+      <Input
+        id="dueDate"
+        disabled={isPending || !isEditMode}
+        type="date"
+        {...register("dueDate")}
       />
 
       <label htmlFor="priority" className="font-light pt-2">
@@ -82,26 +94,14 @@ export const UpdateTodoForm = ({
         id="priority"
         disabled={!isEditMode}
         {...register("priority")}
-        defaultValue={TodoPriority.medium.title}
-        className="p-3 border-2 border-black/10 rounded-md"
+        className={inputStyleVariants({ className: "cursor-pointer" })}
       >
-        <option value={TodoPriority.low.title}>Low</option>
+        <option value={TodoPriority.Low.title}>Low</option>
 
-        <option value={TodoPriority.medium.title}>Medium</option>
+        <option value={TodoPriority.Medium.title}>Medium</option>
 
-        <option value={TodoPriority.high.title}>High</option>
+        <option value={TodoPriority.High.title}>High</option>
       </select>
-
-      <label htmlFor="dueDate" className="font-light pt-2">
-        Due date
-      </label>
-      <input
-        id="dueDate"
-        disabled={isPending || !isEditMode}
-        type="date"
-        {...register("dueDate")}
-        className=" border-2 rounded-md border-black/10 py-4 px-3 outline-none focus:border-black/30"
-      />
 
       <label htmlFor="description" className="font-light pt-2">
         Task description
@@ -110,7 +110,7 @@ export const UpdateTodoForm = ({
         disabled={!isEditMode}
         id="description"
         {...register("description")}
-        className="p-3 border-2 border-black/10 rounded-md"
+        className={inputStyleVariants()}
       />
 
       <div className="flex items-center gap-x-3 pt-3">

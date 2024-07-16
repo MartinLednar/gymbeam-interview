@@ -2,11 +2,12 @@
 
 import { CreateListForm } from "@/components/forms/lists/createList.form";
 import ListPreview from "@/components/listPreview/listPreview.component";
+import { ListPreviewSkeleton } from "@/components/skeletons/listPreview.skeleton";
 import { useGetLists } from "@/hooks/lists/queries/useGetLists/useGetLists.hook";
 
 //TODO show loading state, no todos message, error state + retry for fetch
 const HomePage = () => {
-  const { isLoading, isSuccess, isError, data } = useGetLists();
+  const { isLoading, isSuccess, isError, data, refetch } = useGetLists();
 
   return (
     <>
@@ -17,6 +18,17 @@ const HomePage = () => {
           <CreateListForm />
         </div>
         <div className="grid grid-cols-3 gap-x-3 gap-y-3">
+          {isLoading ? (
+            <>
+              <ListPreviewSkeleton />
+              <ListPreviewSkeleton />
+              <ListPreviewSkeleton />
+
+              <ListPreviewSkeleton />
+              <ListPreviewSkeleton />
+              <ListPreviewSkeleton />
+            </>
+          ) : null}
           {isSuccess
             ? data.map((list) => <ListPreview key={list.id} listData={list} />)
             : null}
