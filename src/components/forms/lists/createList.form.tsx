@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/button/button.component";
 import Input from "@/components/input/input.component";
 import { Modal } from "@/components/modal/modal.component";
 import { useCreateList } from "@/hooks/lists/mutations/useCreateList.hook";
@@ -36,12 +37,12 @@ export const CreateListForm = () => {
 
   return (
     <>
-      <button
-        className="flex gap-x-3 rounded-md items-center justify-center p-2 px-4 bg-green-600 text-white"
+      <Button
+        intent={"greenFull"}
         onClick={() => setIsModalActive(!isModalActive)}
       >
         Add <Plus className="w-5 h-5" />
-      </button>
+      </Button>
 
       <Modal isModalActive={isModalActive} toggleModal={setIsModalActive}>
         <form
@@ -58,12 +59,9 @@ export const CreateListForm = () => {
             {...register("title")}
             placeholder="List title"
           />
-          <button
-            className="mt-1 p-3 rounded-md border-2 border-green-500 text-center transition-colors duration-500 hover:bg-green-500 hover:text-white disabled:opacity-50"
-            disabled={isPending}
-          >
+          <Button className="mt-1" disabled={isPending}>
             Submit
-          </button>
+          </Button>
         </form>
       </Modal>
     </>

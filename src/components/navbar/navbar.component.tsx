@@ -4,7 +4,7 @@ import { ThemeToggle } from "../themeToggle/themeToggle.component";
 
 const Navbar = () => {
   return (
-    <nav className="flex justify-between items-center py-5 px-8 border-b border-black/10">
+    <nav className="flex justify-between items-center py-5 px-8 border-b border-gray-600/30">
       <div className="container flex">
         <Link
           href="/"

@@ -13,7 +13,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body>
         <QueryClientProvider>
-          <ThemeProvider attribute="class" enableSystem defaultTheme="dark">
+          <ThemeProvider attribute="class">
             <Navbar />
             {children}
             <ToasterProvider />

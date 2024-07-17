@@ -54,7 +54,7 @@ export const Modal: FC<Props> = ({ children, isModalActive, toggleModal }) => {
         >
           <button
             type="button"
-            className="ml-auto pt-4 pr-4"
+            className="ml-auto pt-4 pr-4 transition-colors duration-300 hover:text-red-600"
             onClick={() => toggleModal(!isModalActive)}
           >
             <X className="h-6 w-6" />

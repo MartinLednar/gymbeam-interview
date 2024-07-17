@@ -1,12 +1,12 @@
 "use client";
 
+import { Button } from "@/components/button/button.component";
 import { CreateListForm } from "@/components/forms/lists/createList.form";
 import ListPreview from "@/components/listPreview/listPreview.component";
 import { ListPreviewSkeleton } from "@/components/skeletons/listPreview.skeleton";
 import { useGetLists } from "@/hooks/lists/queries/useGetLists/useGetLists.hook";
 import { motion } from "framer-motion";
 
-//TODO show no todos message, error state + retry for fetch
 const HomePage = () => {
   const { isLoading, isSuccess, isError, data, refetch } = useGetLists();
 
@@ -33,9 +33,21 @@ const HomePage = () => {
               <ListPreviewSkeleton />
             </>
           ) : null}
-          {isSuccess
-            ? data.map((list) => <ListPreview key={list.id} listData={list} />)
-            : null}
+
+          {!isSuccess ? null : data.length > 0 ? (
+            data.map((list) => <ListPreview key={list.id} listData={list} />)
+          ) : (
+            <p className="col-span-full text-lg h-[50svh] flex items-center justify-center">
+              No To-Do lists. Let&apos;s get something done!
+            </p>
+          )}
+
+          {isError && (
+            <div className="col-span-full text-lg h-[50svh] flex flex-col items-center justify-center">
+              <p className="text-lg pb-4">There was an error!</p>
+              <Button onClick={() => refetch()}>Try again</Button>
+            </div>
+          )}
         </motion.div>
       </main>
     </>

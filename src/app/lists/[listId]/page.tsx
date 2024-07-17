@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/button/button.component";
 import { CreateTodoForm } from "@/components/forms/todo/createTodo.form";
 import { Modal } from "@/components/modal/modal.component";
 import { TodoSkeleton } from "@/components/skeletons/todo.skeleton";
@@ -53,14 +54,14 @@ const ListPage = () => {
                 Created: {new Date(data.createdAt).toLocaleDateString()}
               </p>
             </div>
-            <button
+            <Button
               onClick={() => toggleDeleteListModal(!isDeleteListModalActive)}
               type="button"
-              className="flex gap-x-1 p-2 ml-auto bg-red-600 text-white rounded-md"
+              intent={"redFull"}
             >
               <Trash2 className="w-5 h-5 " />
               Delete list
-            </button>
+            </Button>
             <Modal
               toggleModal={toggleDeleteListModal}
               isModalActive={isDeleteListModalActive}
@@ -77,14 +78,14 @@ const ListPage = () => {
                     </strong>
                     !
                   </p>
-                  <button
+                  <Button
                     type="button"
-                    className="flex p-2 bg-red-600 text-white rounded-md gap-x-2 items-center justify-center"
                     onClick={handleDeleteList}
+                    intent={"redFull"}
                   >
                     <Trash2 className="w-5 h-5" />
                     Delete List
-                  </button>
+                  </Button>
                 </div>
               </div>
             </Modal>
@@ -94,12 +95,12 @@ const ListPage = () => {
             <div className="flex items-center justify-between pb-6 border-b-2 border-b-gray-600/30">
               <h2 className="text-2xl font-semibold ">To-Do</h2>
 
-              <button
-                className="flex gap-x-3 rounded-md items-center justify-center p-2 px-4 bg-green-600 text-white"
+              <Button
+                intent={"greenFull"}
                 onClick={() => toggleAddTodoModalActive(!isAddTodoModalActive)}
               >
                 Add <Plus className="w-5 h-5" />
-              </button>
+              </Button>
             </div>
 
             <motion.div

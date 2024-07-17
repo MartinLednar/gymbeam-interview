@@ -12,6 +12,7 @@ import {
   TUpdateTodo,
 } from "@/schemas/todo/createTodo.schema";
 import Input, { inputStyleVariants } from "@/components/input/input.component";
+import { Button } from "@/components/button/button.component";
 
 export const UpdateTodoForm = ({
   todo,
@@ -114,26 +115,25 @@ export const UpdateTodoForm = ({
       />
 
       <div className="flex items-center gap-x-3 pt-5">
-        <button
+        <Button
           type="submit"
           disabled={!isDataChanged() || isPending}
-          className="flex-1 flex items-center justify-center gap-x-2 p-3 rounded-md border-2 border-green-500 text-center transition-colors duration-500 hover:bg-green-500 hover:text-white disabled:opacity-50 disabled:pointer-events-none"
+          className="flex-1"
         >
           <Save className="w-5 h-5" />
           Save
-        </button>
+        </Button>
 
-        <button
+        <Button
           type="button"
+          intent={"orangeEmpty"}
           disabled={isPending}
           onClick={handleToggleEditMode}
-          className={`flex-1 flex items-center justify-center gap-x-2 p-3 rounded-md border-2 border-orange-500 text-center transition-colors duration-500 hover:bg-orange-500 hover:text-white disabled:opacity-50 disabled:pointer-events-none ${
-            isEditMode ? "bg-orange-500 text-white" : ""
-          }`}
+          className={`flex-1 ${isEditMode ? "bg-orange-500 text-white" : ""}`}
         >
           <Edit className="w-5 h-5" />
           Edit
-        </button>
+        </Button>
       </div>
     </form>
   );

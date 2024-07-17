@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/button/button.component";
 import Input, { inputStyleVariants } from "@/components/input/input.component";
 import { useCreateTodo } from "@/hooks/todos/mutations/useCreateTodo/useCreateTodo.hook";
 import {
@@ -88,12 +89,9 @@ export const CreateTodoForm = ({ listId }: { listId: string }) => {
         className={inputStyleVariants()}
       />
 
-      <button
-        className="p-3 mt-5 rounded-md border-2 border-green-500 text-center transition-colors duration-500 hover:bg-green-500 hover:text-white disabled:opacity-50"
-        disabled={isPending}
-      >
+      <Button className="mt-5" disabled={isPending}>
         Submit
-      </button>
+      </Button>
     </form>
   );
 };
