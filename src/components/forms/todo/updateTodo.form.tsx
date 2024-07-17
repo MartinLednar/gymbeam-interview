@@ -37,7 +37,9 @@ export const UpdateTodoForm = ({
   const [isEditMode, toggleEditMode] = useState(false);
   const { mutateAsync, isPending } = useUpdateTodo();
 
-  const handleToggleEditMode = () => toggleEditMode(!isEditMode);
+  const handleToggleEditMode = () => {
+    toggleEditMode(!isEditMode);
+  };
 
   const formData = watch();
 
@@ -48,11 +50,10 @@ export const UpdateTodoForm = ({
     [formData, todo]
   );
 
-  console.log("errors", errors);
-
   const onSubmit: SubmitHandler<TUpdateTodo> = async (data) => {
     try {
       await mutateAsync({ ...data, listId, id, createdAt, completed });
+
       handleToggleEditMode();
     } catch (error) {
       toggleModal();
@@ -75,6 +76,7 @@ export const UpdateTodoForm = ({
         id="title"
         disabled={isPending || !isEditMode}
         {...register("title")}
+        fieldError={errors.title?.message}
         placeholder="List title"
       />
 

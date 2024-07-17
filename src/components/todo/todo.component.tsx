@@ -1,7 +1,6 @@
 "use client";
 
 import { useDeleteTodo } from "@/hooks/todos/mutations/useDeleteTodo/useDeleteTodo.hook";
-import { useToggleTodoState } from "@/hooks/todos/mutations/useToggleTodoState/useToggleTodoState.hook";
 import type { Todo as TTodo } from "@/types/todo.type";
 import {
   CalendarClock,
@@ -17,16 +16,17 @@ import { UpdateTodoForm } from "../forms/todo/updateTodo.form";
 import { Modal } from "../modal/modal.component";
 import { TodoPriority } from "../forms/todo/createTodo.form";
 import { motion } from "framer-motion";
+import { useUpdateTodo } from "@/hooks/todos/mutations/useUpdateTodo/useUpdateTodo.hook";
 
 export const Todo: FC<TTodo> = (todo) => {
   const { completed, listId, id, title, description, dueDate, priority } = todo;
   const [isModalActive, setIsModalActive] = useState(false);
-  const { mutate: toggleTodoState } = useToggleTodoState();
+  const { mutate: toggleTodoState } = useUpdateTodo();
   const { mutate: deleteTodo } = useDeleteTodo();
 
   const handleDeleteTodo = () => deleteTodo({ listId, todoId: id });
   const handleToggleTodoState = () =>
-    toggleTodoState({ completed: !completed, listId, todoId: id });
+    toggleTodoState({ completed: !completed, listId, id });
 
   const handleToggleModal = () => setIsModalActive(!isModalActive);
 

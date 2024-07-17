@@ -12,14 +12,11 @@ const fetchCreateTodo = async (todoData: TCreateTodo) => {
   try {
     const validatedData = createTodoSchema.parse(todoData);
 
-    const { data } = await axiosClient.post<Todo>(
-      `lists/${validatedData.listId}/todos`,
-      {
-        ...validatedData,
-        completed: false,
-        createdAt: new Date().toISOString(),
-      } satisfies Omit<Todo, "id">
-    );
+    const { data } = await axiosClient.post<Todo>(`todos`, {
+      ...validatedData,
+      completed: false,
+      createdAt: new Date().toISOString(),
+    } satisfies Omit<Todo, "id">);
 
     return data;
   } catch (error) {

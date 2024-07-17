@@ -12,9 +12,12 @@ const fetchDeleteTodo = async ({
   listId: string;
 }) => {
   try {
-    const { data } = await axiosClient.delete<Todo>(
-      `lists/${listId}/todos/${todoId}`
-    );
+    const { data } = await axiosClient.delete<Todo>(`todos`, {
+      data: {
+        listId,
+        todoId,
+      },
+    });
 
     return data;
   } catch (error) {

@@ -4,9 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const fetchGetList = async ({ listId }: { listId: string }) => {
   try {
-    const { data } = await axiosClient.get<List>(`lists/${listId}`, {
-      params: { totalTodos: { sortBy: "createdAt", order: "desc" } },
-    });
+    const { data } = await axiosClient.get<List>(`lists/${listId}`);
     return data;
   } catch (error) {
     throw error;

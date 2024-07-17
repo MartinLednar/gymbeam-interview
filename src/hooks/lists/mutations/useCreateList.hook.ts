@@ -12,7 +12,6 @@ const fetchCreateList = async (listData: TCreateList) => {
     const validatedData = createListSchema.parse(listData);
 
     const { data } = await axiosClient.post("lists", validatedData);
-    console.log("DATA", data);
 
     return data;
   } catch (error) {

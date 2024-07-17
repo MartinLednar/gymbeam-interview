@@ -4,12 +4,17 @@ import { axiosClient } from "@/utils/axios.util";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-const fetchUpdateTodo = async ({ listId, id: todoId, ...otherData }: Todo) => {
+const fetchUpdateTodo = async ({
+  listId,
+  id: todoId,
+  ...otherData
+}: Partial<Todo>) => {
   try {
-    const { data } = await axiosClient.put<Todo>(
-      `lists/${listId}/todos/${todoId}`,
-      { ...otherData }
-    );
+    const { data } = await axiosClient.put<Todo>(`todos`, {
+      listId,
+      id: todoId,
+      ...otherData,
+    });
 
     return data;
   } catch (error) {
@@ -19,7 +24,7 @@ const fetchUpdateTodo = async ({ listId, id: todoId, ...otherData }: Todo) => {
 
 export const useUpdateTodo = () =>
   useMutation({
-    mutationFn: (todo: Todo) => {
+    mutationFn: (todo: Partial<Todo>) => {
       const updateTodoPromise = fetchUpdateTodo(todo);
 
       toast.promise(updateTodoPromise, {

@@ -51,6 +51,7 @@ export const CreateTodoForm = ({ listId }: { listId: string }) => {
         id="title"
         disabled={isPending}
         {...register("title")}
+        fieldError={errors.title?.message}
         placeholder="Todo title"
       />
 
